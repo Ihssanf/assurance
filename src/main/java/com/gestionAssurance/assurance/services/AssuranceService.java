@@ -9,7 +9,7 @@ public interface AssuranceService {
 
     Assurance update(Assurance assurance);
 
-    boolean delete(Long id);
+    boolean delete(Long id); // Returns true if deletion was successful, false otherwise
 
     Assurance findById(Long id);
 

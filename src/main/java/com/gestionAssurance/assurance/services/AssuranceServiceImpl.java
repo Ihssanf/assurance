@@ -1,9 +1,12 @@
 package com.gestionAssurance.assurance.services;
 
 import com.gestionAssurance.assurance.entities.Assurance;
+import com.gestionAssurance.assurance.entities.Contrat;
 import com.gestionAssurance.assurance.repositories.AssuranceRepository;
+import com.gestionAssurance.assurance.repositories.ContratRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,6 +15,9 @@ public class AssuranceServiceImpl implements AssuranceService {
 
     @Autowired
     private AssuranceRepository assuranceRepository;
+
+    @Autowired
+    private ContratRepository contratRepository;
 
     @Override
     public Assurance save(Assurance assurance) {
@@ -28,8 +34,16 @@ public class AssuranceServiceImpl implements AssuranceService {
     }
 
     @Override
+    @Transactional
     public boolean delete(Long id) {
         if (assuranceRepository.existsById(id)) {
+            // Find contracts associated with the insurance
+            List<Contrat> contracts = contratRepository.findByAssuranceId(id);
+
+            // Delete the contracts (or update them if necessary)
+            contracts.forEach(contratRepository::delete);
+
+            // Now delete the insurance
             assuranceRepository.deleteById(id);
             return true;
         }

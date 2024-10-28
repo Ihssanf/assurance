@@ -4,72 +4,160 @@
   <meta charset="UTF-8">
   <title>Gestion des Assurances</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
   <style>
     body {
       background-image: url("https://www.odcplus.com/wp-content/uploads/2023/08/Formation-ASSURANCE-Maroc.jpg"); /* Your background image */
       background-size: cover;
       background-repeat: no-repeat;
-      background-attachment: fixed; /* Makes the background stay fixed on scroll */
-      color: #fff; /* White text for contrast */
+      background-attachment: fixed;
+      color: #fff;
+      font-family: 'Arial', sans-serif; /* Use a modern font */
+      display: flex; /* Center content vertically */
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden; /* Prevent horizontal scrollbar */
     }
 
     .container {
-      background-color: rgba(0, 0, 0, 0.7); /* Slightly transparent black overlay */
+      background-color: rgba(0, 0, 0, 0.7);
       padding: 30px;
       border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      max-width: 800px; /* Limit container width */
+      margin: 0 auto; /* Center the container */
     }
 
     h1 {
       text-align: center;
+      margin-bottom: 40px;
+      font-size: 3rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      color: #007bff; /* Use a primary color */
+    }
+
+    .card-group {
       margin-bottom: 30px;
     }
 
     .card {
-      background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+      background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
       border: 1px solid #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px); /* Move the card slightly up on hover */
     }
 
     .card-body {
+      color: #fff;
+      padding: 20px;
+    }
+
+    .card-title {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: #007bff; /* Use a primary color */
+    }
+
+    .card-text {
       color: #fff; /* White text for contrast */
     }
 
     .btn {
-      margin-right: 10px;
+      padding: 12px 25px;
+      font-size: 1rem;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .btn-secondary {
+      background-color: #6c757d;
+      border: none;
+    }
+
+    .btn-secondary:hover {
+      background-color: #5a6268;
+    }
+
+    /* Additional Styling for a More Elegant Look */
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.8); /* Slightly darker overlay */
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.3); /* More subtle white background */
+      border: 2px solid #fff;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+    }
+
+    .card:hover {
+      transform: translateY(-10px); /* More prominent hover effect */
+    }
+
+    .card-title {
+      font-weight: bold;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-text {
+      font-size: 1.1rem;
+    }
+
+    .btn {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-primary {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-secondary {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
 <body>
 <div class="container">
-  <h1 class="mt-4 text-center">Bienvenue dans le système de gestion des assurances</h1>
+  <h1 class="mt-4 text-center">Gestion des Assurances</h1>
 
-  <div class="row mt-5">
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Gestion des Assurances</h5>
-          <p class="card-text">Accéder à la liste des assurances disponibles, ajouter, modifier et supprimer des assurances.</p>
-          <a href="/assurances" class="btn btn-primary">Accéder aux Assurances</a>
-        </div>
+  <div class="card-group">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Gestion des Assurances</h5>
+        <p class="card-text">Accéder à la liste des assurances disponibles, ajouter, modifier et supprimer des assurances.</p>
+        <a href="/assurances" class="btn btn-primary">Accéder aux Assurances <i class="fas fa-arrow-right"></i></a>
       </div>
     </div>
 
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Gestion des Clients</h5>
-          <p class="card-text">Accéder à la liste des clients, ajouter, modifier et supprimer des clients.</p>
-          <a href="/clients" class="btn btn-primary">Accéder aux Clients</a>
-        </div>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Gestion des Clients</h5>
+        <p class="card-text">Accéder à la liste des clients, ajouter, modifier et supprimer des clients.</p>
+        <a href="/clients" class="btn btn-primary">Accéder aux Clients <i class="fas fa-arrow-right"></i></a>
       </div>
     </div>
 
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Gestion des Contrats</h5>
-          <p class="card-text">Accéder à la liste des contrats, ajouter, modifier et supprimer des contrats.</p>
-          <a href="/contracts" class="btn btn-primary">Accéder aux Contrats</a>
-        </div>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Gestion des Contrats</h5>
+        <p class="card-text">Accéder à la liste des contrats, ajouter, modifier et supprimer des contrats.</p>
+        <a href="/contracts" class="btn btn-primary">Accéder aux Contrats <i class="fas fa-arrow-right"></i></a>
       </div>
     </div>
   </div>
