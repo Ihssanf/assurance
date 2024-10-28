@@ -1,5 +1,6 @@
 package com.gestionAssurance.assurance.services;
 
+
 import com.gestionAssurance.assurance.entities.Client;
 import com.gestionAssurance.assurance.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class ClientServiceImpl implements ClientService {
         if (clientRepository.existsById(client.getId())) {
             return clientRepository.save(client);
         }
-        return null; // Return null or throw an exception if not found
+        return null;
     }
 
     @Override

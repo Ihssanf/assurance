@@ -31,7 +31,7 @@
     .form-control {
       background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
       border: 1px solid #fff;
-      color: #fff;
+      color: #fff; /* Set input text color to white */
       border-radius: 5px; /* Add rounded corners */
       padding: 12px; /* Increase padding */
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
@@ -49,6 +49,7 @@
       padding: 10px 20px; /* Increase button padding */
       font-size: 1rem; /* Adjust font size for buttons */
       border-radius: 5px; /* Add rounded corners */
+      color: #fff; /* Set button text color to white */
     }
 
     .btn-primary {
@@ -70,6 +71,26 @@
     .btn-secondary:hover {
       background-color: #5a6268; /* Darker gray on hover */
     }
+
+    table {
+      color: #fff; /* Set table text color to white */
+      border-collapse: separate; /* Allow for better spacing in the table */
+      border-spacing: 0 10px; /* Add spacing between table cells */
+      width: 100%; /* Ensure table spans full width */
+    }
+
+    th {
+      background-color: rgba(255, 255, 255, 0.3); /* Subtle white for headers */
+      padding: 10px;
+      font-weight: bold;
+    }
+
+    td {
+      padding: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border for rows */
+      vertical-align: middle; /* Align text vertically in the middle */
+      color: #fff; /* Set the text color to white */
+    }
   </style>
 </head>
 <body>
@@ -79,7 +100,10 @@
   <form th:action="@{/add-insurance}" method="POST" th:object="${insurance}">
     <div class="form-group">
       <label for="type">Type d'assurance :</label>
-      <input type="text" th:field="*{type}" class="form-control" id="type" placeholder="Type">
+      <select th:field="*{type}" class="form-control" id="type">
+        <option th:each="insuranceType : ${T(com.gestionAssurance.assurance.entities.InsuranceType).values()}"
+                th:value="${insuranceType}" th:text="${insuranceType}"></option>
+      </select>
     </div>
     <div class="form-group">
       <label for="montant">Montant :</label>

@@ -50,6 +50,7 @@ public class ClientController {
 
     @PostMapping("/edit-client/{id}")
     public String editClient(@PathVariable Long id, @ModelAttribute Client client) {
+        client.setId(id);  // Ensure the ID is set before updating
         clientService.update(client);
         return "redirect:/clients";
     }
