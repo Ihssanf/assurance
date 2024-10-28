@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestion des Assurances</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-image: url("https://www.odcplus.com/wp-content/uploads/2023/08/Formation-ASSURANCE-Maroc.jpg"); /* Your background image */
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed; /* Makes the background stay fixed on scroll */
+      color: #fff; /* White text for contrast */
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.7); /* Slightly transparent black overlay */
+      padding: 30px;
+      border-radius: 10px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+      border: 1px solid #fff;
+    }
+
+    .card-body {
+      color: #fff; /* White text for contrast */
+    }
+
+    .btn {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1 class="mt-4 text-center">Bienvenue dans le système de gestion des assurances</h1>
+
+  <div class="row mt-5">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Gestion des Assurances</h5>
+          <p class="card-text">Accéder à la liste des assurances disponibles, ajouter, modifier et supprimer des assurances.</p>
+          <a href="/assurances" class="btn btn-primary">Accéder aux Assurances</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Gestion des Clients</h5>
+          <p class="card-text">Accéder à la liste des clients, ajouter, modifier et supprimer des clients.</p>
+          <a href="/clients" class="btn btn-primary">Accéder aux Clients</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Gestion des Contrats</h5>
+          <p class="card-text">Accéder à la liste des contrats, ajouter, modifier et supprimer des contrats.</p>
+          <a href="/contracts" class="btn btn-primary">Accéder aux Contrats</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

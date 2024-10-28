@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestion des Contrats</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-image: url("https://www.odcplus.com/wp-content/uploads/2023/08/Formation-ASSURANCE-Maroc.jpg"); /* Your background image */
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed; /* Makes the background stay fixed on scroll */
+      color: #fff; /* White text for contrast */
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.7); /* Slightly transparent black overlay */
+      padding: 30px;
+      border-radius: 10px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    table {
+      color: #fff; /* White text for contrast */
+    }
+
+    .btn {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1 class="mt-4">Liste des Contrats</h1>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Date de Début</th>
+      <th>Date de Fin</th>
+      <th>Client</th>
+      <th>Assurance</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="contrat : ${contrats}">
+      <td th:text="${contrat.dateDebut}"></td>
+      <td th:text="${contrat.dateFin}"></td>
+      <td th:text="${contrat.client.nom} + ' ' + ${contrat.client.prenom}"></td>
+      <td th:text="${contrat.assurance.type}"></td>
+      <td>
+        <a th:href="@{/edit-contract/{id}(id=${contrat.id})}" class="btn btn-primary">Modifier</a>
+        <a th:href="@{/delete-contract/{id}(id=${contrat.id})}" class="btn btn-danger">Supprimer</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <a href="/add-contract" class="btn btn-success">Ajouter un contrat</a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
