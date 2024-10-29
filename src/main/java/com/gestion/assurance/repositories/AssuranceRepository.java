@@ -1,6 +1,6 @@
-package com.gestionAssurance.assurance.repositories;
+package com.gestion.assurance.repositories;
 
-import com.gestionAssurance.assurance.entities.Assurance;
+import com.gestion.assurance.entities.Assurance;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

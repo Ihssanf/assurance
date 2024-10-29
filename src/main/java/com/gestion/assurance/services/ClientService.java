@@ -1,7 +1,7 @@
-package com.gestionAssurance.assurance.services;
+package com.gestion.assurance.services;
 
 
-import com.gestionAssurance.assurance.entities.Client;
+import com.gestion.assurance.entities.Client;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
-package com.gestionAssurance.assurance.entities;
+package com.gestion.assurance.entities;
 
 import jakarta.persistence.*;
-import java.util.Date;
 
 @Entity
 public class Contrat {

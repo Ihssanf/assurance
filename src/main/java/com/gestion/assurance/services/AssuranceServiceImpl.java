@@ -1,9 +1,9 @@
-package com.gestionAssurance.assurance.services;
+package com.gestion.assurance.services;
 
-import com.gestionAssurance.assurance.entities.Assurance;
-import com.gestionAssurance.assurance.entities.Contrat;
-import com.gestionAssurance.assurance.repositories.AssuranceRepository;
-import com.gestionAssurance.assurance.repositories.ContratRepository;
+import com.gestion.assurance.repositories.AssuranceRepository;
+import com.gestion.assurance.repositories.ContratRepository;
+import com.gestion.assurance.entities.Assurance;
+import com.gestion.assurance.entities.Contrat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

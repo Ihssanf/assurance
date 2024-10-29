@@ -1,6 +1,6 @@
-package com.gestionAssurance.assurance.services;
+package com.gestion.assurance.services;
 
-import com.gestionAssurance.assurance.entities.Assurance;
+import com.gestion.assurance.entities.Assurance;
 import java.util.List;
 
 public interface AssuranceService {

@@ -30,7 +30,7 @@
 
     h1 {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
       font-size: 3rem;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
       color: #007bff;
@@ -41,17 +41,7 @@
     }
 
     th, td {
-      color: #fff; /* Ensure text in table headers and cells is white */
-    }
-
-    th {
-      background-color: rgba(255, 255, 255, 0.2);
-      padding: 10px;
-      font-weight: bold;
-    }
-
-    td {
-      padding: 8px;
+      color: #fff;
     }
 
     .btn {
@@ -60,12 +50,6 @@
       font-size: 1rem;
       border-radius: 5px;
       transition: background-color 0.3s ease, transform 0.2s ease;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
 
     .btn-primary {
@@ -73,17 +57,9 @@
       border: none;
     }
 
-    .btn-primary:hover {
-      background-color: #0056b3;
-    }
-
     .btn-danger {
       background-color: #dc3545;
       border: none;
-    }
-
-    .btn-danger:hover {
-      background-color: #c82333;
     }
 
     .btn-success {
@@ -91,23 +67,23 @@
       border: none;
     }
 
-    .btn-success:hover {
-      background-color: #218838;
-    }
-
     .btn-secondary {
       background-color: #6c757d;
       border: none;
     }
 
-    .btn-secondary:hover {
-      background-color: #5a6268;
+    #searchBar {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid #007bff;
+      margin-bottom: 20px;
     }
 
-    /* Modal Styling */
-    .modal-dialog {
-      max-width: 500px;
-      margin: 1.75rem auto;
+    #searchBar::placeholder {
+      color: #ccc;
     }
 
     .modal-content {
@@ -115,29 +91,23 @@
       color: #fff;
       border: 1px solid #fff;
       border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
 
     .modal-header {
       background-color: #dc3545;
-      border-bottom: 1px solid #fff;
       border-radius: 10px 10px 0 0;
     }
 
     .modal-header .close {
       color: #fff;
-      opacity: 1;
-      text-shadow: none;
-    }
-
-    .modal-body {
-      padding: 20px;
     }
   </style>
 </head>
 <body>
 <div class="container">
   <h1 class="mt-4">Liste des Clients</h1>
+
+  <input type="text" id="searchBar" class="form-control" placeholder="Rechercher par nom et prénom">
 
   <table class="table table-striped">
     <thead>
@@ -148,7 +118,7 @@
       <th>Actions</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody id="clientTable">
     <tr th:each="client : ${clients}">
       <td th:text="${client.nom}"></td>
       <td th:text="${client.prenom}"></td>
@@ -167,22 +137,22 @@
   <a href="/add-client" class="btn btn-success">Ajouter un client</a>
   <a href="/" class="btn btn-secondary">Accueil</a>
 
-  <!-- Modal for Confirmation -->
+  <!-- Delete Confirmation Modal -->
   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Confirmation de suppression</h5>
+          <h5 class="modal-title" id="deleteModalLabel">Confirmer la suppression</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
+            <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <p>Êtes-vous sûr de vouloir supprimer le client <span id="clientName"></span> ? Cette action est irréversible.</p>
+          Êtes-vous sûr de vouloir supprimer <strong id="clientName"></strong> ?
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-          <a href="#" id="deleteConfirmation" class="btn btn-danger">Supprimer</a>
+          <a id="confirmDelete" class="btn btn-danger" href="#">Supprimer</a>
         </div>
       </div>
     </div>
@@ -194,19 +164,23 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
   $(document).ready(function () {
-    // Handle the delete modal event
+    $("#searchBar").on("keyup", function () {
+      var value = $(this).val().toLowerCase();
+      $("#clientTable tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+      });
+    });
+
     $('#deleteModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget);
       var id = button.data('id');
       var name = button.data('name');
 
-      var deleteLink = $('#deleteConfirmation');
-      deleteLink.attr('href', '/delete-client/' + id);
-
-      var modal = $(this);
-      modal.find('.modal-body #clientName').text(name);
+      $('#clientName').text(name);  // Show client name in modal
+      $('#confirmDelete').attr('href', '/delete-client/' + id);  // Set the delete URL dynamically
     });
   });
 </script>
 </body>
 </html>
+

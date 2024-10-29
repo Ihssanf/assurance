@@ -1,4 +1,4 @@
-package com.gestionAssurance.assurance;
+package com.gestion.assurance;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

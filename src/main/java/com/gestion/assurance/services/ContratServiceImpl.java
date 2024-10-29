@@ -1,7 +1,7 @@
-package com.gestionAssurance.assurance.services;
+package com.gestion.assurance.services;
 
-import com.gestionAssurance.assurance.entities.Contrat;
-import com.gestionAssurance.assurance.repositories.ContratRepository;
+import com.gestion.assurance.repositories.ContratRepository;
+import com.gestion.assurance.entities.Contrat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,4 +44,6 @@ public class ContratServiceImpl implements ContratService {
     public List<Contrat> findAll() {
         return contratRepository.findAll();
     }
+
+
 }

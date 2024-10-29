@@ -101,7 +101,7 @@
     <div class="form-group">
       <label for="type">Type d'assurance :</label>
       <select th:field="*{type}" class="form-control" id="type">
-        <option th:each="insuranceType : ${T(com.gestionAssurance.assurance.entities.InsuranceType).values()}"
+        <option th:each="insuranceType : ${T(com.gestion.assurance.entities.InsuranceType).values()}"
                 th:value="${insuranceType}" th:text="${insuranceType}"></option>
       </select>
     </div>

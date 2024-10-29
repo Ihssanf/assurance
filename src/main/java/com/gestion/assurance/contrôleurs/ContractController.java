@@ -1,4 +1,4 @@
-package com.gestionAssurance.assurance.Contrôleurs;
+package com.gestion.assurance.contrôleurs;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,15 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.validation.annotation.Validated;
 
-import com.gestionAssurance.assurance.entities.Client;
-import com.gestionAssurance.assurance.entities.Contrat;
-import com.gestionAssurance.assurance.entities.Assurance;
-import com.gestionAssurance.assurance.services.ClientService;
-import com.gestionAssurance.assurance.services.ContratService;
-import com.gestionAssurance.assurance.services.AssuranceService;
+import com.gestion.assurance.entities.Client;
+import com.gestion.assurance.entities.Contrat;
+import com.gestion.assurance.entities.Assurance;
+import com.gestion.assurance.services.ClientService;
+import com.gestion.assurance.services.ContratService;
+import com.gestion.assurance.services.AssuranceService;
 
 import java.util.List;
 

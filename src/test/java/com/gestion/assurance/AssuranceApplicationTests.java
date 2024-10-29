@@ -1,4 +1,4 @@
-package com.gestionAssurance.assurance;
+package com.gestion.assurance;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

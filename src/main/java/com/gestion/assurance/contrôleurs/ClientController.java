@@ -1,7 +1,7 @@
-package com.gestionAssurance.assurance.Contrôleurs;
+package com.gestion.assurance.contrôleurs;
 
-import com.gestionAssurance.assurance.entities.Client;
-import com.gestionAssurance.assurance.services.ClientService;
+import com.gestion.assurance.entities.Client;
+import com.gestion.assurance.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
