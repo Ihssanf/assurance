@@ -111,8 +111,12 @@
     </div>
     <div class="form-group">
       <label for="couverture">Couverture :</label>
-      <textarea th:field="*{couverture}" class="form-control" id="couverture" placeholder="Couverture"></textarea>
+      <select th:field="*{couverture}" class="form-control" id="couverture">
+        <option th:each="CouvertureType : ${T(com.gestion.assurance.entities.CouvertureType).values()}"
+                th:value="${CouvertureType}" th:text="${CouvertureType}"></option>
+      </select>
     </div>
+
 
     <button type="submit" class="btn btn-primary">Enregistrer</button>
     <a href="/assurances" class="btn btn-secondary">Annuler</a>

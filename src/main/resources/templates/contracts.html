@@ -156,11 +156,11 @@
       <td th:text="${contrat.dateDebut}"></td>
       <td th:text="${contrat.dateFin}"></td>
       <td th:text="${contrat.client.nom} + ' ' + ${contrat.client.prenom}"></td>
-      <td th:text="${contrat.assurance.type}"></td>
+      <td th:text="${contrat.assurance.type} + ' ' + ${contrat.assurance.couverture}"></td>
       <td>
         <a th:href="@{/edit-contract/{id}(id=${contrat.id})}" class="btn btn-primary">Modifier</a>
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"
-                th:data-id="${contrat.id}" th:data-name="${contrat.client.nom} + ' ' + ${contrat.client.prenom} + ' - ' + ${contrat.assurance.type}">
+                th:data-id="${contrat.id}" th:data-name="${contrat.client.nom} + ' ' + ${contrat.client.prenom} + ' - ' + ${contrat.assurance.type} + ' - ' + ${contrat.assurance.couverture}">
           Supprimer
         </button>
       </td>

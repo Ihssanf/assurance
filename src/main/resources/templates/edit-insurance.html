@@ -79,7 +79,10 @@
   <form th:action="@{/edit-insurance/{id}(id=${insurance.id})}" method="POST" th:object="${insurance}">
     <div class="form-group">
       <label for="type">Type d'assurance :</label>
-      <input type="text" th:field="*{type}" class="form-control" id="type" placeholder="Type">
+      <select th:field="*{type}" class="form-control" id="type">
+        <option th:each="insuranceType : ${T(com.gestion.assurance.entities.InsuranceType).values()}"
+                th:value="${insuranceType}" th:text="${insuranceType}"></option>
+      </select>
     </div>
     <div class="form-group">
       <label for="montant">Montant :</label>
@@ -87,7 +90,10 @@
     </div>
     <div class="form-group">
       <label for="couverture">Couverture :</label>
-      <textarea th:field="*{couverture}" class="form-control" id="couverture" placeholder="Couverture"></textarea>
+      <select th:field="*{couverture}" class="form-control" id="couverture">
+        <option th:each="CouvertureType : ${T(com.gestion.assurance.entities.CouvertureType).values()}"
+                th:value="${CouvertureType}" th:text="${CouvertureType}"></option>
+      </select>
     </div>
 
     <button type="submit" class="btn btn-primary">Enregistrer</button>

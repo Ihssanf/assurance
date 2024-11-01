@@ -94,7 +94,7 @@
     <div class="form-group">
       <label for="assurance">Assurance :</label>
       <select th:field="*{assurance.id}" class="form-control" id="assurance">
-        <option th:each="assurance : ${assurances}" th:value="${assurance.id}" th:text="${assurance.type}"></option>
+        <option th:each="assurance : ${assurances}" th:value="${assurance.id}" th:text="${assurance.type} + ' ' + ${assurance.couverture}"></option>
       </select>
     </div>
 

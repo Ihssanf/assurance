@@ -1,14 +1,16 @@
 package com.gestion.assurance.contrôleurs;
 
 import com.gestion.assurance.entities.Assurance;
-import com.gestion.assurance.services.AssuranceService;
+import com.gestion.assurance.repositories.AssuranceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -16,7 +18,7 @@ import java.util.List;
 public class AssuranceController {
 
     @Autowired
-    private AssuranceService assuranceService;
+    private AssuranceRepository assuranceRepository; // Inject the repository
 
     @GetMapping("/add-insurance")
     public String showAddInsuranceForm(Model model) {
@@ -26,20 +28,20 @@ public class AssuranceController {
 
     @PostMapping("/add-insurance")
     public String addInsurance(@ModelAttribute Assurance assurance) {
-        assuranceService.save(assurance);
+        assuranceRepository.save(assurance); // Directly use repository
         return "redirect:/assurances";
     }
 
     @GetMapping("/assurances")
     public String viewAssurances(Model model) {
-        List<Assurance> assurances = assuranceService.findAll();
+        List<Assurance> assurances = assuranceRepository.findAll();
         model.addAttribute("assurances", assurances);
         return "assurances";
     }
 
     @GetMapping("/edit-insurance/{id}")
     public String showEditInsuranceForm(@PathVariable Long id, Model model) {
-        Assurance assurance = assuranceService.findById(id);
+        Assurance assurance = assuranceRepository.findById(id).orElse(null); // Directly use repository
         if (assurance != null) {
             model.addAttribute("insurance", assurance);
             return "edit-insurance";
@@ -50,13 +52,21 @@ public class AssuranceController {
 
     @PostMapping("/edit-insurance/{id}")
     public String editInsurance(@PathVariable Long id, @ModelAttribute Assurance assurance) {
-        assuranceService.update(assurance);
+        assuranceRepository.save(assurance); // Directly use repository
         return "redirect:/assurances";
     }
 
     @GetMapping("/delete-insurance/{id}")
-    public String deleteInsurance(@PathVariable Long id) {
-        assuranceService.delete(id);
+    public String deleteInsurance(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            assuranceRepository.deleteById(id);
+            redirectAttributes.addFlashAttribute("successMessage", "Assurance supprimée avec succès.");
+        } catch (DataIntegrityViolationException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Assurance ne peut pas être supprimée car elle contient des contrats.");
+        }
         return "redirect:/assurances";
     }
+
 }
+
+

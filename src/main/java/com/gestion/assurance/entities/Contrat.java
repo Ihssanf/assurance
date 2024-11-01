@@ -23,8 +23,17 @@ public class Contrat {
     @JoinColumn(name = "assurance_id")
     private Assurance assurance;
 
+    public Assurance getAssurance() {
+        return assurance;
+    }
+
+    public void setAssurance(Assurance assurance) {
+        this.assurance = assurance;
+    }
+
     // Constructors, getters, and setters
-    public Contrat() {}
+    public Contrat() {
+    }
 
     public Long getId() {
         return id;
@@ -56,13 +65,5 @@ public class Contrat {
 
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    public Assurance getAssurance() {
-        return assurance;
-    }
-
-    public void setAssurance(Assurance assurance) {
-        this.assurance = assurance;
     }
 }

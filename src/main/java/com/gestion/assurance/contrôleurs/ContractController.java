@@ -1,5 +1,11 @@
 package com.gestion.assurance.contrôleurs;
 
+import com.gestion.assurance.entities.Assurance;
+import com.gestion.assurance.entities.Client;
+import com.gestion.assurance.entities.Contrat;
+import com.gestion.assurance.repositories.AssuranceRepository;
+import com.gestion.assurance.repositories.ClientRepository;
+import com.gestion.assurance.repositories.ContratRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,72 +16,69 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.validation.annotation.Validated;
 
-import com.gestion.assurance.entities.Client;
-import com.gestion.assurance.entities.Contrat;
-import com.gestion.assurance.entities.Assurance;
-import com.gestion.assurance.services.ClientService;
-import com.gestion.assurance.services.ContratService;
-import com.gestion.assurance.services.AssuranceService;
-
 import java.util.List;
 
 @Controller
 public class ContractController {
 
     @Autowired
-    private ContratService contratService;
-
+    private ContratRepository contratRepository;
     @Autowired
-    private ClientService clientService;
-
+    private ClientRepository clientRepository;
     @Autowired
-    private AssuranceService assuranceService;
-
+    private AssuranceRepository assuranceRepository;
     @GetMapping("/add-contract")
     public String showAddContractForm(Model model) {
         model.addAttribute("contract", new Contrat());
-        List<Client> clients = clientService.findAll();
-        List<Assurance> assurances = assuranceService.findAll();
+        List<Client> clients = clientRepository.findAll();
         model.addAttribute("clients", clients);
+        List<Assurance> assurances = assuranceRepository.findAll();
         model.addAttribute("assurances", assurances);
         return "add-contract";
     }
 
     @PostMapping("/add-contract")
-    public String addContract(@Validated @ModelAttribute Contrat contrat, Model model) {
+    public String addContract(@Validated @ModelAttribute Contrat contrat, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            // Get all clients for the dropdown menus
+            List<Client> clients = clientRepository.findAll();
+            model.addAttribute("clients", clients);
+            List<Assurance> assurances = assuranceRepository.findAll();
+            model.addAttribute("assurances", assurances);
+            return "add-contract"; // Return the add-contract view with validation errors
+        }
 
-
-        // Assuming you have a client ID and an assurance ID in the form data
         Long clientId = contrat.getClient().getId();
+        Client client = clientRepository.findById(clientId).orElse(null);
         Long assuranceId = contrat.getAssurance().getId();
-
-        // Get the client and assurance objects
-        Client client = clientService.findById(clientId);
-        Assurance assurance = assuranceService.findById(assuranceId);
-
-        // Set the client and assurance objects in the Contrat object
-        contrat.setClient(client);
-        contrat.setAssurance(assurance);
-
-        contratService.save(contrat);
-        return "redirect:/contracts";
+       Assurance assurance = assuranceRepository.findById(assuranceId).orElse(null);
+        if (client != null) {
+            contrat.setClient(client);
+            contrat.setAssurance(assurance);
+            contratRepository.save(contrat);
+            return "redirect:/contracts";
+        } else {
+            // Handle error: Client not found
+            return "add-contract"; // Redirect to the form with errors
+        }
     }
 
     @GetMapping("/contracts")
     public String viewContracts(Model model) {
-        List<Contrat> contrats = contratService.findAll();
+        List<Contrat> contrats = contratRepository.findAll();
         model.addAttribute("contrats", contrats);
         return "contracts";
     }
 
     @GetMapping("/edit-contract/{id}")
     public String showEditContractForm(@PathVariable Long id, Model model) {
-        Contrat contrat = contratService.findById(id);
+        Contrat contrat = contratRepository.findById(id).orElse(null);
         if (contrat != null) {
             model.addAttribute("contract", contrat);
-            List<Client> clients = clientService.findAll();
-            List<Assurance> assurances = assuranceService.findAll();
+            List<Client> clients = clientRepository.findAll();
             model.addAttribute("clients", clients);
+
+            List<Assurance> assurances = assuranceRepository.findAll();
             model.addAttribute("assurances", assurances);
             return "edit-contract";
         } else {
@@ -87,35 +90,34 @@ public class ContractController {
     public String editContract(@PathVariable Long id, @Validated @ModelAttribute Contrat contrat,
                                BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            // Get all clients and assurances for the dropdown menus
-            List<Client> clients = clientService.findAll();
-            List<Assurance> assurances = assuranceService.findAll();
+            // Get all clients for the dropdown menus
+            List<Client> clients = clientRepository.findAll();
             model.addAttribute("clients", clients);
+            List<Assurance> assurances = assuranceRepository.findAll();
             model.addAttribute("assurances", assurances);
             return "edit-contract"; // Return the edit-contract view with validation errors
         }
 
-        // Assuming you have a client ID and an assurance ID in the form data
         Long clientId = contrat.getClient().getId();
+        Client client = clientRepository.findById(clientId).orElse(null);
         Long assuranceId = contrat.getAssurance().getId();
+        Assurance assurance = assuranceRepository.findById(assuranceId).orElse(null);
 
-        // Get the client and assurance objects
-        Client client = clientService.findById(clientId);
-        Assurance assurance = assuranceService.findById(assuranceId);
-
-        // Set the client and assurance objects in the Contrat object
-        contrat.setClient(client);
-        contrat.setAssurance(assurance);
-
-        contratService.update(contrat);
-        return "redirect:/contracts";
+        if (client != null) {
+            contrat.setClient(client);
+            contrat.setId(id); // Ensure ID is set
+            contrat.setAssurance(assurance);
+            contratRepository.save(contrat);
+            return "redirect:/contracts";
+        } else {
+            // Handle error: Client not found
+            return "edit-contract"; // Redirect to the form with errors
+        }
     }
 
     @GetMapping("/delete-contract/{id}")
     public String deleteContract(@PathVariable Long id) {
-        contratService.delete(id);
+        contratRepository.deleteById(id);
         return "redirect:/contracts";
     }
-
-
 }

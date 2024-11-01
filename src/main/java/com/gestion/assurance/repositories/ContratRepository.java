@@ -9,6 +9,5 @@ import java.util.List;
 
 public interface ContratRepository extends JpaRepository<Contrat, Long> {
 
-    @Query("SELECT c FROM Contrat c WHERE c.assurance.id = :assuranceId")
-    List<Contrat> findByAssuranceId(@Param("assuranceId") Long assuranceId);
+
 }   

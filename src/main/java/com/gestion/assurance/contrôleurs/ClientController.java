@@ -1,7 +1,7 @@
 package com.gestion.assurance.contrôleurs;
 
 import com.gestion.assurance.entities.Client;
-import com.gestion.assurance.services.ClientService;
+import com.gestion.assurance.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +16,11 @@ import java.util.List;
 public class ClientController {
 
     @Autowired
-    private ClientService clientService;
+    private ClientRepository clientRepository; // Inject the repository
 
     @GetMapping("/clients")
     public String viewClients(Model model) {
-        List<Client> clients = clientService.findAll();
+        List<Client> clients = clientRepository.findAll();
         model.addAttribute("clients", clients);
         return "clients";
     }
@@ -33,13 +33,13 @@ public class ClientController {
 
     @PostMapping("/add-client")
     public String addClient(@ModelAttribute Client client) {
-        clientService.save(client);
+        clientRepository.save(client); // Directly use repository
         return "redirect:/clients";
     }
 
     @GetMapping("/edit-client/{id}")
     public String showEditClientForm(@PathVariable Long id, Model model) {
-        Client client = clientService.findById(id);
+        Client client = clientRepository.findById(id).orElse(null); // Directly use repository
         if (client != null) {
             model.addAttribute("client", client);
             return "edit-client";
@@ -50,14 +50,14 @@ public class ClientController {
 
     @PostMapping("/edit-client/{id}")
     public String editClient(@PathVariable Long id, @ModelAttribute Client client) {
-        client.setId(id);  // Ensure the ID is set before updating
-        clientService.update(client);
+        client.setId(id); // Ensure ID is set
+        clientRepository.save(client); // Directly use repository
         return "redirect:/clients";
     }
 
     @GetMapping("/delete-client/{id}")
     public String deleteClient(@PathVariable Long id) {
-        clientService.delete(id);
+        clientRepository.deleteById(id); // Directly use repository
         return "redirect:/clients";
     }
 }

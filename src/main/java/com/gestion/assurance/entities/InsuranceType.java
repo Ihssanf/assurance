@@ -6,4 +6,7 @@ public enum InsuranceType {
     AUTO,
     HABITATION,
 
+    MALADIE,
+
+
 }
